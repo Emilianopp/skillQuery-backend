@@ -1,0 +1,6 @@
+where
+skills
+languages
+perks
+education
+responabilities
