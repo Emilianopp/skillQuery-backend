@@ -15,8 +15,8 @@ out,text
 1,"Effective communicator who can explain complex ideas using clear and concise language, including through written communication."
 1,"Strong ability in communicating directly with customers, helping to deliver and interpret data, while soliciting feedback for future improvements."
 1,"Excel at collaborating with a diverse group of internal colleagues, including subject matter experts, product managers, sales leaders, technical experts, and other client-facing analysts."
-1,Solutions oriented
-1,Education/Knowledge/skills required:
+0,Solutions oriented
+0,Education/Knowledge/skills required:
 1,Minimum Bachelor’s degree in relevant subject area (science or business)
 1,"You have strong quantitative foundations, as evidenced by your educational and professional background."
 1,"Proficient in Microsoft Excel (e.g. pivot tables, VLOOKUP, INDEX MATCH)."
@@ -24,7 +24,7 @@ out,text
 1,Experience/strong interest in converting unstructured datasets into broadly usable data models.
 1,Experience/strong interest in building market forecast models.
 1,You know how to deliver an effective presentation.
-1,Preferred:
+0,Preferred:
 1,Experience from life sciences
 1,"Advanced degree (MA, MBA, MPH, MS, or PhD in life sciences, social sciences or statistics) and/or relevant experience in the medical device, healthcare, market research or consulting sectors."
 0,"It is the policy of Clarivate to provide equal employment opportunity (EEO) to all persons regardless of age, color, national origin, citizenship status, physical or mental disability, race, religion, creed, gender, pregnancy, sex, sexual orientation, gender identity and/or expression, genetic information, marital status, status with regard to public assistance, veteran status, or any other characteristic protected by federal, state or local law. In addition, Clarivate will provide reasonable accommodations for qualified individuals with disabilities."
@@ -71,7 +71,7 @@ out,text
 0,"Leverage the power of SQL, R or Python in building reproducible and concise analysis"
 0,Identify and develop automation capabilities to extract and populate data sets
 0,Contribute to the team’s efforts to create and maintain training and project documentation
-1,The Ideal Candidate
+0,The Ideal Candidate
 1,"Demonstrated usage of automation to extract core data, translate/manipulate data sets and push to visualization dashboard consumers"
 1,Expert level proficiency working with Tableau
 1,Translate technical subjects to non-technical audiences
@@ -158,7 +158,7 @@ out,text
 1,Strong communication skills
 1,Strong problem solving and collaboration skills
 1,Excellent debugging and troubleshooting skills
-1,Preferably:
+0,Preferably:
 1,"Experience with Python, R, Airflow, React/JavaScript"
 1,Experience with shell scripting and the Linux/Unix command line
 1,"Experience with good code management practices, expertise with git"
@@ -275,7 +275,7 @@ out,text
 0,Create an intake process for ad hoc report demands.
 0,Ensure data is set up and accessible for the proper parties.
 0,"Make recommendations for new metrics, techniques, and strategies to improve team performance and measurement in the future."
-1,Job Requirements
+0,Job Requirements
 1,4+ years of data analysis and knowledge of business statistics.
 1,4+ years of experience writing performant SQL queries on large data sets.
 1,4+ years of developing scalable reporting solutions/products that are intuitive to use.
@@ -385,14 +385,14 @@ out,text
 0,"Support the design, development, and production of meaningful performance metrics reports including insights and trend analysis for GRS clients"
 0,"Enable leaders to make timely data-driven product, market-development, and distribution decisions"
 0,"Comply fully with all privacy, confidentiality, data security, and other requirements related to customer data"
-1,What do you need to succeed?
+0,What do you need to succeed?
 1,Minimum 3 years’ experience with SQL / SAS
 1,Must be able to effectively communicate results to a business audience not familiar with data and analytics
 1,"3+ years of demonstrated experience in analytics, data warehousing, quantitative data analysis tools, and reporting tools"
 1,"Proven ability to work well independently, but also function in a team environment, with frequent contact with people at all levels of the Sun Life Canada organization"
 1,Proven balance of analytical and creative problem-solving skills
 1,A strong quantitative skills and background
-1,Assets
+0,Assets
 1,"Undergraduate in Business, Statistics, Computer Science, Mathematics, Engineering, or Physics (or equivalent university degree or college diploma)"
 1,Strong presentation skills
 1,"Experience in life insurance/wealth management, or other financial services industry (e.g., retail banking, credit card, property, and casualty insurance)"
@@ -432,7 +432,7 @@ out,text
 0,You will upgrade the understanding of the organization by conducting seminars and presentations on data analytics and the value of data driven decision making.
 0,You will advance and support the profit planning Excel model for the product managers and the stakeholders.
 0,"When we embrace the different ideas, perspectives and backgrounds that make each of us unique, we — as individuals and as a company — are stronger"
-1,Required (Basic) Qualifications:
+0,Required (Basic) Qualifications:
 1,University degree or college diploma.
 1,"Minimum 1 year of experience in a data analytics, financial analyst, or operational analyst role."
 1,Minimum 1 year of experience with statistical and numerical methods to model complex dynamics and build a prediction model.
@@ -482,7 +482,7 @@ out,text
 0,"Build informative, insightful dashboards and data platforms across different domains and audiences."
 0,"Create new workflow processes, associated monitoring, and alerts."
 0,"Contribute to schema design, data consistency, and overall data governance."
-1,Requirements 
+0,Requirements 
 1,"Bachelor’s degree in Computer Science, Statistics, or related field"
 1,3+ years’ work experience in a data-centric role
 1,Proficient SQL skills with excellent hands-on exposure to ETL principles
@@ -492,7 +492,7 @@ out,text
 1,Strong communication skills
 1,Strong problem solving and collaboration skills
 1,Excellent debugging and troubleshooting skills
-1,Preferably:
+0,Preferably:
 1,"Experience with Python, R, Airflow, React/JavaScript"
 1,Experience with shell scripting and the Linux/Unix command line
 1,"Experience with good code management practices, expertise with git"
@@ -519,7 +519,7 @@ out,text
 0,Building and maintenance of small-scale applications
 0,"Fostering innovation with progressive ideas on small-scale applications and data analytics aligned to the vision, enterprise tools and direction of TDS"
 0,"Having the ability to energize and inspire others and implement new ideas and methods, championing transformational change"
-1,Job Requirements
+0,Job Requirements
 1,"Background in computer science, data science, engineering or equivalent quantitative field and/or 3+ years of equivalent technical working experience"
 1,"Ability to code in Javascript/HTML and Python and front-end frameworks (Vue, React, or Angular)"
 1,"A combination of strong data science and technology skills, business focus, and problem-solving skills"
@@ -529,8 +529,8 @@ out,text
 1,"Experience in data collection, data pipelines, databases (MongoDB, SQL), and statistics"
 1,Business knowledge in capital markets and financial derivatives
 1,"Nice to have: working knowledge of Vue, Go, and Bloomberg"
-1,Additional Information
-1,Inclusiveness
+0,Additional Information
+0,Inclusiveness
 0,"At TD, we are committed to fostering an inclusive, accessible environment, where all employees and customers feel valued, respected and supported. We are dedicated to building a workforce that reflects the diversity of our customers and communities in which we live and serve. If you require an accommodation for the recruitment/interview process (including alternate formats of materials, or accessible meeting rooms or other accommodation), please let us know and we will work with you to meet your needs."
 0,About the job
 0,Build a meaningful career
@@ -573,10 +573,10 @@ out,text
 0,Undertake complex analysis but instill key insights in a simple model for business stakeholders to understand and review
 0,"Build dashboards, reports and metrics to help teams measure/monitor success"
 0,"Present data and insights in a clear and concise manner through the use of visuals, slide decks, and in unconventional ways"
-0,"Leverage the power of SQL, R or Python in building reproducible and concise analysis"
+1,"Leverage the power of SQL, R or Python in building reproducible and concise analysis"
 0,Identify and develop automation capabilities to extract and populate data sets
 0,Contribute to the team’s efforts to create and maintain training and project documentation
-1,The Ideal Candidate
+0,The Ideal Candidate
 1,"Demonstrated usage of automation to extract core data, translate/manipulate data sets and push to visualization dashboard consumers"
 1,Expert level proficiency working with Tableau
 1,Translate technical subjects to non-technical audiences
@@ -613,7 +613,7 @@ out,text
 0,Create an intake process for ad hoc report demands.
 0,Ensure data is set up and accessible for the proper parties.
 0,"Make recommendations for new metrics, techniques, and strategies to improve team performance and measurement in the future."
-1,Job Requirements
+0,Job Requirements
 1,4+ years of data analysis and knowledge of business statistics.
 1,4+ years of experience writing performant SQL queries on large data sets.
 1,4+ years of developing scalable reporting solutions/products that are intuitive to use.
@@ -640,7 +640,7 @@ out,text
 1,Run machine learning tests and experiments
 1,Perform statistical analysis and fine-tuning using test results
 1,Extend existing ML libraries and frameworks
-0,Keep abreast of development in the field
+1,Keep abreast of development in the field
 1,"Skills, Knowledge And Abilities"
 1,"Bilingual, French & English (oral and written)"
 1,Understanding data structures and data modeling
@@ -658,10 +658,10 @@ out,text
 0,Undertake complex analysis but instill key insights in a simple model for business stakeholders to understand and review
 0,"Build dashboards, reports and metrics to help teams measure/monitor success"
 0,"Present data and insights in a clear and concise manner through the use of visuals, slide decks, and in unconventional ways"
-0,"Leverage the power of SQL, R or Python in building reproducible and concise analysis"
+1,"Leverage the power of SQL, R or Python in building reproducible and concise analysis"
 0,Identify and develop automation capabilities to extract and populate data sets
 0,Contribute to the team’s efforts to create and maintain training and project documentation
-1,The Ideal Candidate
+0,The Ideal Candidate
 1,"Demonstrated usage of automation to extract core data, translate/manipulate data sets and push to visualization dashboard consumers"
 1,Expert level proficiency working with Tableau
 1,Translate technical subjects to non-technical audiences
@@ -689,7 +689,7 @@ out,text
 0,Confirm that projects adhere to development standards and guidelines
 0,Apply data warehouse concepts and methodologies to various projects
 0,What do you need to succeed?
-1,Must-have
+0,Must-have
 1,"Currently enrolled at a Canadian post-secondary institution with a focus on computer science, mathematics, statistics, commerce, or business analysis"
 1,Leadership acumen and a passion to apply it in a dynamic business environment
 1,Excellent interpersonal and highly developed communication skills (verbal and written)
@@ -815,7 +815,7 @@ out,text
 0,Work with technologists to enhance data infrastructure
 0,Create scalable Python libraries for department wide use
 0,"Acquire, clean, maintain, and analyze data sets to support Analyst models"
-1,Minimum Qualifications
+0,Minimum Qualifications
 1,Qualifications we seek in you
 1,"Bachelor's degree in computer science, information systems, information technology, engineering, economics, or related fields"
 1,Excellent written and verbal communication skills
@@ -858,7 +858,7 @@ out,text
 1,"Outcome focused, critical thinker with the ability to analyze and visualize, to ensure continuous improvement across our entire business"
 1,Collaborative team player who builds relationships easily across various stakeholder groups to move initiatives forward
 1,"An individual who is self-motivated with the ability to operate independently with limited guidance and direction, and to multitask and manage several projects and deliverables at one time"
-1,What You Bring
+0,What You Bring
 1,3-5 years of experience with Data & Analytics
 1,3-5 years in demonstrated data transformation & manipulation experience
 1,Experience delivering superior innovative analytical insights to lines of businesses
@@ -1000,7 +1000,7 @@ out,text
 0,"Supporting the Administrator, Records and Information Management, including with document production of Closing Books/Record Books and research into Estates matters;"
 0,Provide assistance to others during absences as needed; and
 0,Other special projects & duties as assigned.
-1,The ideal candidate possesses:
+0,The ideal candidate possesses:
 1,"A university or college degree in Information Management, Information Science, Library Science or other related field;"
 1,Relevant experience within a professional services environment (preferred);
 1,"Proficiency in MS Office applications including Word, Outlook, Excel, PowerPoint and Adobe;"
@@ -1027,7 +1027,7 @@ out,text
 0,Must-haves (minimum requirements)
 0,"Current enrolment in a formal co-op program or internship program in a Computer Science, Software Engineering, Data Science or related program at an accredited post-secondary institution, and returning to full-time studies after the work term (attach your transcripts with your application)"
 0,"Alignment with our values safety above all else, stronger together, operational discipline, curiosity and lifelong learning, and act with integrity"
-1,Preference for
+0,Preference for
 1,"Proven computer application knowledge with advanced understanding of Excel (pivot tables, v-lookups, advanced filters) and PowerPoint"
 1,"A deep understanding of analytical techniques, quantitative problem solving and data wrangling"
 1,"Coding, modelling, and data visualization experience"
@@ -1078,7 +1078,7 @@ out,text
 1,Excellent time management skills;  
 1,"Experience with Qlik Sense, R or Python will be an asset;  "
 1,Past social sector experience would be an asset
-1,General Competency Requirements 
+0,General Competency Requirements 
 1,Personal Initiative: Self-starter with willingness to learn on their own. 
 1," Culturally Congruent: A passion for, belief in and communication of CHF vision, mission and core values. Demonstrates a strong service ethic and customer service approach. "
 1, Teamwork:  Ability to work independently and as part of a team. Is willing to provide assistance and support to others and defines success in terms of the whole team. 
@@ -1173,8 +1173,8 @@ out,text
 1,"Established interpersonal skills for work internally across departments, as well as with clients."
 1,Ability to work in a highly collaborative environment as well as independently with minimum supervision
 0,Nice To Have
-0,Knowledge of insurance / reinsurance
-0,Experience using Pyspark scripting
+1,Knowledge of insurance / reinsurance
+1,Experience using Pyspark scripting
 0,Keywords
 0,Reference Code: 105409
 0,About the job
@@ -1209,14 +1209,14 @@ out,text
 1,Strong attention to detail and data entry skills.
 1,"Ability to work efficiently and effectively, utilizing good time management skills."
 1,Strong teamwork and collaboration skills.
-1,Core Values
-1,Entrepreneurship - encouraging innovation and educate risk taking
-1,Integrity – doing things right every time
-1,Teamwork – working together to maximize results
-1,Accountability – measure and take responsibility for outcomes
-1,"Service - serving customers, communities, and colleagues"
-1,"Totten Insurance Group is Canada’s leading national MGA provider of niche products and innovative solutions. Totten Group is committed to servicing brokers across the country and is comprised of six divisions: Personal Lines; Commercial Property; Commercial Casualty; Hospitality; Construction and Professional Liability. With offices across Canada, Totten Group’s corporate office resides in Toronto ON, and has other locations in Oakville ON, Dartmouth NS, Winnipeg MB, Montreal QC, and Vancouver BC. Learn more at www.tottengroup.com."
-1,Department Business Operations
+0,Core Values
+0,Entrepreneurship - encouraging innovation and educate risk taking
+0,Integrity – doing things right every time
+0,Teamwork – working together to maximize results
+0,Accountability – measure and take responsibility for outcomes
+0,"Service - serving customers, communities, and colleagues"
+0,"Totten Insurance Group is Canada’s leading national MGA provider of niche products and innovative solutions. Totten Group is committed to servicing brokers across the country and is comprised of six divisions: Personal Lines; Commercial Property; Commercial Casualty; Hospitality; Construction and Professional Liability. With offices across Canada, Totten Group’s corporate office resides in Toronto ON, and has other locations in Oakville ON, Dartmouth NS, Winnipeg MB, Montreal QC, and Vancouver BC. Learn more at www.tottengroup.com."
+0,Department Business Operations
 1,Required Experience: 2-5 years of relevant experience
 1,Required Travel: No Travel Required
 1,Required Education: Bachelor's degree (4-year degree)
@@ -1246,8 +1246,8 @@ out,text
 0,Reporting support
 0,* Develop reports/dashboards in BI tool (Power BI) as per reporting needs provided
 0,* Provide demo to end users and release to production environment
-1,Desired Skills and Experience
-1,Profile
+0,Desired Skills and Experience
+0,Profile
 1,You are graduated with a Bachelor or Master's degree in Engineering and/or Computer Science or related subject.
 1,Required
 1,* Python or knowledge of another language (VBA/Java/C#/Javascript). Willingness to learn Python.
@@ -1290,7 +1290,7 @@ out,text
 0,Translates conceptual customer requirements into functional requirements in a clear manner that is comprehensible to developers and projects teams
 0,Use knowledge of the specific data products available and visualization capabilities to enhance requirements and provide insightful suggestions to finance stakeholders
 0,Prioritize work with the team and ensure there is a forward looking roadmap for features to be delivered on the data products the finance team is tasked with
-1,Your Qualifications And Skills
+0,Your Qualifications And Skills
 1,"Bachelor’s degree in quantitative discipline (Mathematics, Statistics, Computer Science, Economics, Finance)"
 1,3+ years business and data analyst experience (preferably in finance)
 1,Working knowledge of BI and data warehouse concepts and terminology
@@ -1313,7 +1313,7 @@ out,text
 0,"Advise Council teams on the creation of robust measurement plans, including the selection of indicators, data collection methods, interpretation and analysis options for multiple purposes such as research, evaluation and improvement initiatives."
 0,"Develop reports and presentations to share relevant findings with diverse audiences, including the creation of compelling and intuitive displays of data."
 0,"Provides advice, guidance, and support, to quality and clinical leads, along with external stakeholders, on using data for improvement, evaluation and research."
-1,Qualifications
+0,Qualifications
 1,"A level of education, training and experience equivalent to a Bachelor’s Degree in Health Information Science, Math, Statistics, Business or Health Administration, or a related program, plus three (3) years recent related experience. Experience with statistical analysis and quality improvement is preferred, along with a working knowledge of health care data sources and relevant privacy legislation. Proficiency with a variety of software tools is essential, including Microsoft Office, database software and SPSS or equivalent. Experience with Statistical Process Control techniques is an asset."
 1,"The successful candidate will possess exceptional analytic capability and attention to detail, including the ability to manage multiple demands and pressures while producing high quality work. Problem solving, curiosity and self-motivation are essential. Working with a diverse team and external stakeholders, the Health Data Analyst will need to communicate effectively both verbally and in writing with tact and diplomacy."
 0,"Closing date: September 20, 2021"
@@ -1383,8 +1383,8 @@ out,text
 1,"Outlined below are the required minimum qualifications for this position. If none are listed, there are no minimum qualifications."
 1,Age – 18 or older
 0,Preferred Qualifications...
-0,"Outlined below are the optional preferred qualifications for this position. If none are listed, there are no preferred qualifications."
-0,Walmart will accommodate the disability-related needs of applicants and associates as required by law.
+1,"Outlined below are the optional preferred qualifications for this position. If none are listed, there are no preferred qualifications."
+1,Walmart will accommodate the disability-related needs of applicants and associates as required by law.
 0,Primary Location…
 0,"233 Madill Blvd, Mississauga, ON L5W 1Y6, Canada"
 0,About the job
@@ -1439,7 +1439,7 @@ out,text
 1,Object oriented development stacks (.net) (preferred)
 1,"Strong verbal and written communication skills, with an ability to express complex technical concepts in business terms"
 1,"Support product innovation, working closely with technology throughout the build, test, and release of the product using agile methodologies"
-1,Qualifications
+0,Qualifications
 1,"Bachelor's degree required Supply Chain, Data Analytics or equivalent"
 1,"Master's degree preferred Supply Chain, Data Analytics, MBA or equivalent"
 1,"Two (2) years or more Applied Project(s) Experience: Experience in demonstrating, digital transformation, data management in an educational/project or intern type environment required"
@@ -1833,3 +1833,11 @@ out,text
 0,2 dog parks
 0,Easy transit access
 0,Free on-site parking for staff and visitors
+1,required profficient in sq
+1,must know sql
+1,able to use sql databases
+1,expirience in sql
+1,profficient in r python and sql
+1,have used any of python sql matlab r
+1,Expertise with UNIX & Git
+1,expertise with python sql matlab r
