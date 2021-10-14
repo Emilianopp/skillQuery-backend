@@ -1,6 +1,4 @@
 where
-skills
-languages
-perks
-education
-responabilities
+technical skills
+packages
+
