@@ -9,19 +9,8 @@ import time
 import numpy as np
 import pickle
 import re
-#=====================Class Role, allows to search and filter out roles we want from those we aren't interested in=====================#
-
-
-class Role:
-    def __init__(self, must, thresh):
-        self.must = must
-        self.score = 0
-        self.thresh = thresh
-
-    def check_role(self, role):
-        regex_expressions = [fr"(?=.*\b{i.lower()}\b)" for i in self.must]
-        self.score = sum([bool(re.search(m, role)) for m in regex_expressions])
-        return self.score
+import os
+os.system("./Role.py")
 #=====================Primary Scraping class, allows for scarping of role urls and for scraping proper description =====================#
 
 
@@ -52,7 +41,6 @@ class Scraper:
                 role = self.driver.find_element_by_xpath(
                     element + 'h3').text.lower()
                 self.scroll_down(element, 'h4/a')
-                print(Role.check_role(role) >= Role.thresh)
                 if(Role.check_role(role) >= Role.thresh):
 
                     # Load more jobs button is loaded with page but not interactable
@@ -60,7 +48,6 @@ class Scraper:
                     try:
                         self.driver.find_element_by_xpath(
                             f'//*[@id="main-content"]/section[2]/button').click()
-                        print('clicked')
                     except Exception as e:
                         pass
 
@@ -109,10 +96,4 @@ class Scraper:
                     fail.append(url)
 
 
-options = webdriver.ChromeOptions()
-role = Role(['Software', 'Engineer'], thresh=2)
-options.add_experimental_option('prefs', {'intl.accept_languages': 'en,en_US'})
-scrape = Scraper(
-    r'C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe', options)
-scrape.search("softwareengineer", "canada")
-print(scrape.get_job_data(Role=role, debug=True))
+
