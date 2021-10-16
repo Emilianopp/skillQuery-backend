@@ -1,0 +1,7 @@
+Role:
+  role_terms: "Software Engineer"
+  threshold: 2
+Query:
+    search: "softwareengineer"
+    location: "Canada"
+  
