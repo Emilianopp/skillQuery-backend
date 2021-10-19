@@ -38,8 +38,8 @@ if __name__ == "__main__":
 
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
-    role_terms = config['Role']['role_terms']
+    role_terms = config['Role']['title']
     threshold = config['Role']['threshold']
-    search = config['Query']['search']
-    location = config['Query']['location']
+    search = config['Scraping']['Query']['search']
+    location = config['Scraping']['Query']['location']
     main(role_terms, threshold, search, location)

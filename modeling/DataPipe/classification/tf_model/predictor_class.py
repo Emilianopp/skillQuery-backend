@@ -1,8 +1,5 @@
-
-from pandas.core import series
 import tensorflow as tf
 import numpy as np
-from datasets import load_dataset
 from transformers import DistilBertTokenizer
 import sys
 sys.path.append("../../scraping")
@@ -10,17 +7,17 @@ from scraping.classes.DataBase.Mongo import Mongo
 from scraping.classes.Role import Role
 from transformers import TFAutoModelForSequenceClassification
 import pandas as pd
-from itertools import cycle, islice
+
 
 '''
 Predictor class 
 Allows to create an object to run new data on 
-path to pretrained tokinizers and model are required
+path to pretrained tokenizers and model are required
 '''
 class Predictor:
 
-  def __init__(self,path_tokinizer,path_model,db:Mongo,role:Role):
-    self.tokenizer = DistilBertTokenizer.from_pretrained(path_tokinizer)
+  def __init__(self,path_tokenizer,path_model,db:Mongo,role:Role):
+    self.tokenizer = DistilBertTokenizer.from_pretrained(path_tokenizer)
     self.model = TFAutoModelForSequenceClassification.from_pretrained(path_model)
     self.db = db
     self.role = role

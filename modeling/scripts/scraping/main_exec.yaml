@@ -1,7 +1,0 @@
-Role:
-  role_terms: "data science"
-  threshold: 2
-Query:
-    search: "datascience"
-    location: "Canada"
-  

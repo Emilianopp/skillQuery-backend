@@ -1,0 +1,15 @@
+Role:
+  title: "data science"
+  threshold: 2
+Scraping:
+  execute: True
+  Query:
+    search: "datascience"
+    location: "Canada"
+Process:
+  execute: True
+Predict:
+  execute: True
+  path_model: "./classification/tf_model/model_BERT"
+  path_tokenizer: "./classification/tf_model/tokenizer"
+
