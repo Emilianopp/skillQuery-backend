@@ -2,9 +2,9 @@
 
 Original project goal was to gather insight on what is needed become a Data Scientist in Canada.
 
-The project has then become larger and is now trying to encapsulate the skills required for a variety of roles across multiple locations into an analytics web app.
+The project has then become larger and is now trying to encapsulate the skills required for a variety of roles across multiple locations into an analytics web app. Project description will soon be refactored to represent current goals
 
- Below is the developmental process that has been done, any of which is subject to change as development continues.
+Below is the developmental process that has been done, any of which is subject to change as development continues.
 
 
 
@@ -14,6 +14,8 @@ The project has then become larger and is now trying to encapsulate the skills r
 Data was collected using a Selenium web crawler
 Every available job posting correlated to the term "Data Science" was gathered. 
 Exact procedure can be found in the [get_data notebook](https://github.com/Emilianopp/DataScienceReq/blob/master/notebooks/1_get_data.ipynb)
+
+Updates have been made to integrate a [data pipeline](https://github.com/Emilianopp/DataScienceReq/tree/master/modeling/DataPipe). The pipeline scrapes data and walks it through preprocess all the way to model prediction, making database calls as needed.
 
 # Data Cleansing 
 
