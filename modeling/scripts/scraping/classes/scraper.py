@@ -1,3 +1,4 @@
+from .DataBase.Mongo import *
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -10,24 +11,25 @@ import time
 import numpy as np
 import sys
 sys.path.append("./Database")
-from .DataBase.Mongo import *
 #=====================Primary Scraping class, allows for scarping of role urls and for scraping proper description =====================#
 
 
 class Scraper:
-    def __init__(self, path_to_driver, options,collection):
+    def __init__(self, path_to_driver, options, collection):
         self.driver = webdriver.Chrome(path_to_driver, options=options)
         self.collection = collection
     #+++++++++Logs you into linkedin+++++++++#
-    def login(self,p):
-        url =  "https://www.linkedin.com/checkpoint/rm/sign-in-another-account?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin"
+
+    def login(self, p):
+        url = "https://www.linkedin.com/checkpoint/rm/sign-in-another-account?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin"
         wait = WebDriverWait(self.driver, 1)
         self.driver.get(url)
         username = self.driver.find_element_by_id("username")
         username.send_keys("emilianopp550@gmail.com")
         password = self.driver.find_element_by_id("password")
         password.send_keys(p)
-        self.driver.find_element_by_class_name("login__form_action_container").click()
+        self.driver.find_element_by_class_name(
+            "login__form_action_container").click()
 
     #+++++++++Searcher for roles, uses linkedin url query engine to find search result+++++++++#
     def search(self, query, loc):
@@ -65,13 +67,13 @@ class Scraper:
 
                     # Data Extraction
                     url = self.driver.find_element_by_xpath(
-                       f'//*[@id="main-content"]/section[2]/ul/li[{i}]/div/a').get_attribute("href")
+                        f'//*[@id="main-content"]/section[2]/ul/li[{i}]/div/a').get_attribute("href")
                     company = self.driver.find_element_by_xpath(
                         element + 'h4/a').text
                     location = self.driver.find_element_by_xpath(
                         element + 'div/span[1]').text
                     job_urls.append(
-                        {"url":url, 'company': company, 'location': location, 'role': role, 'date':datetime.today().strftime('%Y-%m')})
+                        {"title": Role.title,"url": url, 'company': company, 'location': location, 'role': role, 'date': datetime.today().strftime('%Y-%m')})
 
                 i += 1
                 if(debug == True and i == 5):
@@ -81,23 +83,24 @@ class Scraper:
                 print(str(e))
                 return job_urls
 
-    #+++++++++Automated Scroller+++++++++#
-    def get_description(self,job_dict,good):
-
+    #+++++++++Gathers descriptions for job postings+++++++++#
+    def get_description(self, job_dict, good):
         fail = []
-        #Iterate through the url list to scrape the descriptions
+        # Iterate through the url list to scrape the descriptions
         for ind in job_dict:
             url = ind['url']
             if url not in good:
                 try:
                     self.driver.get(url)
                     time.sleep(3)
-                    self.driver.find_element_by_xpath('/html/body/div[6]/div[3]/div/div[1]/div[1]/div/div[2]/footer/button').click()
-                    description = self.driver.find_element_by_xpath('//*[@id="job-details"]/span').text
-                    ind.update({"description":description})
+                    self.driver.find_element_by_xpath(
+                        '/html/body/div[6]/div[3]/div/div[1]/div[1]/div/div[2]/footer/button').click()
+                    description = self.driver.find_element_by_xpath(
+                        '//*[@id="job-details"]/span').text
+                    ind.update({"description": description})
                     good.append(url)
                 except Exception as e:
-                    #keep going if there is a random error in which a div did not load properly but check where we failed
+                    # keep going if there is a random error in which a div did not load properly but check where we failed
                     print(f"fail {e}")
                     fail.append(url)
         return job_dict
