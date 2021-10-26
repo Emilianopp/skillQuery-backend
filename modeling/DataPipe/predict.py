@@ -13,8 +13,7 @@ def main(path_model:str,path_tokenizer:str,role:str)->None:
             db = db,
             role = Role(role))
             out = predictor.predict_prod()
-            db.db.model_outputs.insert_many(out.to_dict('records')
-        )
+            db.db.model_outputs.insert_many(out.to_dict('records'))
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("config", help="yaml config file for query",

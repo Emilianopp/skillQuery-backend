@@ -17,6 +17,11 @@ def main(role_terms: str, threshold: str, search: str, location: str) -> None:
     client = MongoClient()
     scrape_table = Mongo(client)
     role = Role(role_terms, thresh=threshold)
+    try:
+        scrape_table.db.Roles.bulk_write([InsertOne({'role':role.title,'thresh':role.thresh})])
+        print(f"Role inserted:{role.title}")
+    except Exception as e:
+        print("Role already inserted",e)
     options.add_experimental_option(
         'prefs', {'intl.accept_languages': 'en,en_US'})
     scrape = Scraper(

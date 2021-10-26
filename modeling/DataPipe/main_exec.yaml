@@ -1,10 +1,10 @@
 Role:
-  title: "data science"
+  title: "Software Engineer"
   threshold: 2
 Scraping:
   execute: True
   Query:
-    search: "datascience"
+    search: "softwareengineer"
     location: "Canada"
 Process:
   execute: True

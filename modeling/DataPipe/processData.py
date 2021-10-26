@@ -10,11 +10,12 @@ import yaml
 def main(role:str)->None:
     role = Role(role)
     client = MongoClient()
-    db = Mongo(client)
-    test = Preprocessor(role = role, db = db)
-    test.get_data()
-    records = test.process()
+    db = Mongo(client,col = 'Scraped_Data')
+    pre = Preprocessor(role = role, db = db,)
+    pre.get_data()
+    records = pre.process()
     db.db.model_inputs.bulk_write([InsertOne(x) for x in records])
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("config", help="yaml config file for query",

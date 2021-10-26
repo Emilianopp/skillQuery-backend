@@ -46,10 +46,11 @@ class Predictor:
     series_inputs = pd.DataFrame(inputs)
     lengths = [len(x) for x in series_inputs.inputs]
     df = pd.DataFrame()
-    df['inputs'] = sum(series_inputs.inputs,[])
-    df["out"] = list(map(self.pred_vectorized,df.inputs))
+    df['text'] = sum(series_inputs.inputs,[])
+    df["out"] = list(map(self.pred_vectorized,df.text))
     df['urls'] = sum([x * [m] for x,m in zip(lengths,series_inputs.urls)],[])
-    return df
+    df["role"] = [self.role.title for x in range(len(df.out))]
+    return df[df.out == 1].drop(['out'],axis = 1)
 
   def save_df(self,path):
     self.prod_predict.to_csv(path)
