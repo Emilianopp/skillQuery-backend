@@ -47,24 +47,23 @@ class Scraper:
     #+++++++++Scrapes urls and returns a dictionary of format+++++++++#
     # url:{'company':company,'location':location,'role':role}
     def get_job_data(self, Role, job_urls=[], debug=False):
+        time.sleep(5)
         i = 1
         while True:
             try:
-
                 element = f'//*[@id="main-content"]/section[2]/ul/li[{i}]/div/div[2]/'
                 role = self.driver.find_element_by_xpath(
                     element + 'h3').text.lower()
                 self.scroll_down(element, 'h4/a')
                 if(Role.check_role(role) >= Role.thresh):
-
                     # Load more jobs button is loaded with page but not interactable
                     # Create exception handler that will click the button once it becomes interactable
                     try:
                         self.driver.find_element_by_xpath(
                             f'//*[@id="main-content"]/section[2]/button').click()
                     except Exception as e:
+                        print(str(e))
                         pass
-
                     # Data Extraction
                     url = self.driver.find_element_by_xpath(
                         f'//*[@id="main-content"]/section[2]/ul/li[{i}]/div/a').get_attribute("href")
@@ -72,17 +71,26 @@ class Scraper:
                         element + 'h4/a').text
                     location = self.driver.find_element_by_xpath(
                         element + 'div/span[1]').text
-                    job_urls.append(
-                        {"title": Role.title,"url": url, 'company': company, 'location': location, 'role': role, 'date': datetime.today().strftime('%Y-%m')})
+                    location_map = location.split(",")
+                    if len(location_map) == 3:
+                        job_urls.append(
+                            {"title": Role.title,"url": url, 'location':location,'company': company,
+                            'city': location_map[0],'region':location_map[1],"country": location_map[2],
+                            'role': role, 'date': datetime.today().strftime('%Y-%m')})
+                    else:
+                        job_urls.append(
+                            {"title": Role.title,"url": url, 'location':location,'company': company,
+                            'role': role, 'date': datetime.today().strftime('%Y-%m')})
 
                 i += 1
-                if(debug == True and i == 5):
-                    return job_urls
-            # keep going until index is out of range at which point it will return the dictionary
+                #keep going until index is out of range at which point it will return the dictionary
             except Exception as e:
-                print(str(e))
+                i += 1
+                element = f'//*[@id="main-content"]/section[2]/ul/li[{i-1}]/div/div[2]/'
+                self.scroll_down('//*[@id="main-content"]','')
+                print(str(e),'error at i = ',i)
+            if(debug == True and i == 240):
                 return job_urls
-
     #+++++++++Gathers descriptions for job postings+++++++++#
     def get_description(self, job_dict, good):
         fail = []
@@ -93,8 +101,8 @@ class Scraper:
                 try:
                     self.driver.get(url)
                     time.sleep(3)
-                    self.driver.find_element_by_xpath(
-                        '/html/body/div[6]/div[3]/div/div[1]/div[1]/div/div[2]/footer/button').click()
+                    # self.driver.find_element_by_xpath(
+                    #     '/html/body/div[6]/div[3]/div/div[1]/div[1]/div/div[2]/footer/button').click()
                     description = self.driver.find_element_by_xpath(
                         '//*[@id="job-details"]/span').text
                     ind.update({"description": description})
