@@ -6,5 +6,8 @@
         "markdown",
         "latex",
         "plaintext"
+    ],
+    "python.analysis.extraPaths": [
+        
     ]
 }

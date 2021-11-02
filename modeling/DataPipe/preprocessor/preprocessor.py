@@ -1,18 +1,19 @@
 from scraping.classes.Role import *
 from scraping.classes.DataBase.Mongo import *
 class Preprocessor: 
-    def __init__(self,role:Role, db:Mongo)-> None:
+    def __init__(self, db:Mongo)-> None:
         self.db = db
-        self.role = role
     def process_item(self,x:dict)->list:
         desc = x.get('description')
-        return({'urls': x.get('url'), 'inputs':[x for x in desc.split("\n") if x != "" ],"role":self.role.title})
-
+        if desc != None :
+            return({'urls': x.get('url'), 'inputs':[x for x in desc.split("\n") if x != ""]})
+        else:
+            return(False)
     def process(self) -> list:
-        return([self.process_item(x) for x in self.descriptions])
+        return([self.process_item(x) for x in self.descriptions if self.process_item(x)])
 
 
     def get_data(self) -> None:
-        self.descriptions = self.db.query({"title":self.role.title},{'description':1,'_id':0,'url':1})
+        self.descriptions = self.db.query({},{'description':1,'_id':0,'url':1})
 
 

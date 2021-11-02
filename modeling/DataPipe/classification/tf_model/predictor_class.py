@@ -42,8 +42,10 @@ class Predictor:
   '''
   def predict_prod(self) -> pd.DataFrame:
 
-    inputs = self.db.query({"role":self.role.title},{"urls":1,"_id":0,"inputs":1})
+    inputs = self.db.query({},{"urls":1,"_id":0,"inputs":1})
     series_inputs = pd.DataFrame(inputs)
+    series_inputs['inputs'].replace('empty', np.nan, inplace=True)
+    series_inputs.dropna(subset=['inputs'], inplace=True)
     lengths = [len(x) for x in series_inputs.inputs]
     df = pd.DataFrame()
     df['text'] = sum(series_inputs.inputs,[])

@@ -61,8 +61,8 @@ class Scraper:
                     try:
                         self.driver.find_element_by_xpath(
                             f'//*[@id="main-content"]/section[2]/button').click()
+                        print("load more clicked")
                     except Exception as e:
-                        print(str(e))
                         pass
                     # Data Extraction
                     url = self.driver.find_element_by_xpath(
@@ -71,7 +71,7 @@ class Scraper:
                         element + 'h4/a').text
                     location = self.driver.find_element_by_xpath(
                         element + 'div/span[1]').text
-                    location_map = location.split(",")
+                    location_map = location.replace(" ", '').split(",")
                     if len(location_map) == 3:
                         job_urls.append(
                             {"title": Role.title,"url": url, 'location':location,'company': company,
@@ -88,7 +88,7 @@ class Scraper:
                 i += 1
                 element = f'//*[@id="main-content"]/section[2]/ul/li[{i-1}]/div/div[2]/'
                 self.scroll_down('//*[@id="main-content"]','')
-                print(str(e),'error at i = ',i)
+                print(e,'error at i hello = ',i)
             if(debug == True and i == 240):
                 return job_urls
     #+++++++++Gathers descriptions for job postings+++++++++#
@@ -101,8 +101,8 @@ class Scraper:
                 try:
                     self.driver.get(url)
                     time.sleep(3)
-                    # self.driver.find_element_by_xpath(
-                    #     '/html/body/div[6]/div[3]/div/div[1]/div[1]/div/div[2]/footer/button').click()
+                    self.driver.find_element_by_xpath(
+                        '//*[@id="ember47"]').click()
                     description = self.driver.find_element_by_xpath(
                         '//*[@id="job-details"]/span').text
                     ind.update({"description": description})
