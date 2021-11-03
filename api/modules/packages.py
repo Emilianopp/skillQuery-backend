@@ -6,16 +6,14 @@ from pymongo import MongoClient
 from collections import Counter
 
 client = MongoClient()
-# db = client.prod
-tech = Blueprint('tech', __name__)
+packages = Blueprint('packages', __name__)
 
 
-@tech.route('/tech', methods=['GET'])
-def get_tech():
+@packages.route('/packages', methods=['GET'])
+def get_packages():
     country = session['country']
     region = session['region']
-    role = session['role'] 
-    print(region,len(role),country)
+    role = session['role']
     pipe = [{
         '$lookup':
         {
@@ -33,8 +31,8 @@ def get_tech():
     count = client.prod.Scraped_Data.count( {"country": country ,
          "region": region,
          "title": role}) 
-    query = client.prod.techs.aggregate(pipeline=pipe)
+    query = client.prod.packages.aggregate(pipeline=pipe)
     embedded_list = [x.get("_id") for x in query]
-    tech_list = sum(embedded_list,[])
-    out = {"counts" :Counter(tech_list),"numRoles":count }
+    packages_list = sum(embedded_list,[])
+    out = {"counts" :Counter(packages_list),"numRoles":count }
     return json.dumps(out)

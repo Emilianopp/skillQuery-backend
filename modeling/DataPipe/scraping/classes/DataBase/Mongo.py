@@ -25,7 +25,7 @@ class Mongo:
         else: 
             in_collection = col
         in_collection.insert_one(doc)
-    #Queries the database based on condtions selected
+    #Queries the database based on conditions selected
     def query(self,condition:dict,select:dict,col =None ):
         if col == None:
             collection = self.collection

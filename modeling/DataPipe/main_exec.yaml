@@ -1,16 +1,20 @@
-Role:
-  title: "Data Science"
-  additional : "Scientist"
+--- 
+Analysis: 
+  analysisFiles: 
+    packages: "C:/Users/Emiliano/Documents/Git/DataScienceReq/data/DS_packages.txt"
+    techs: "C:/Users/Emiliano/Documents/Git/DataScienceReq/data/languages.txt"
+Predict: 
+  execute: true
+  path_model: ./classification/tf_model/model_BERT
+  path_tokenizer: ./classification/tf_model/tokenizer
+Process: 
+  execute: true
+Role: 
+  additional: Scientist
   threshold: 2
-Scraping:
-  execute: True
-  Query:
-    search: "datascience"
-    location: "Canada"
-Process:
-  execute: True
-Predict:
-  execute: True
-  path_model: "./classification/tf_model/model_BERT"
-  path_tokenizer: "./classification/tf_model/tokenizer"
-
+  title: "Data Science"
+Scraping: 
+  Query: 
+    location: Canada
+    search: datascience
+  execute: true

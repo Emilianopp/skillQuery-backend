@@ -102,7 +102,7 @@ class Scraper:
                     self.driver.get(url)
                     time.sleep(3)
                     self.driver.find_element_by_xpath(
-                        '//*[@id="ember47"]').click()
+                        '/html/body/div[6]/div[3]/div/div[1]/div[1]/div/div[2]/footer/button').click()
                     description = self.driver.find_element_by_xpath(
                         '//*[@id="job-details"]/span').text
                     ind.update({"description": description})
