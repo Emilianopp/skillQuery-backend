@@ -34,6 +34,12 @@ class Analysis_Processing:
             raise Exception("DATA FRAME EMPTY")
         return out
 
+
+    '''
+   cleanse_sentence and strip_digits_from_corpus 
+    you can play around with they were both experimental
+    
+    '''
     '''
     Strips symbols from sentence 
     still does not strip "," <- to fix
@@ -87,25 +93,23 @@ class Analysis_Processing:
                 if target['found_list']:
                     target['found_list'] = list(set(found + target['found_list']))
         return urls
+    
+    '''
+    
+    #======================================================================#
+    #=====================================BIGRAMS==========================#
+    #======================================================================#
+    
+    '''
     '''
     Bigram analysis still need to fix and touch up
     '''
-    def bigram_analysis(self,df,thresh = 5,insert = False,col = "bigrams"):
+    def bigram_analysis(self,df,thresh = 5):
         bigram_measures = nltk.collocations.BigramAssocMeasures()
         corpus_list = [self.cleanse_sentence(self.strip_digits_from_corpus(sentence)) for sentence in df.text]
         corpus = ' '.join(corpus_list)
         finder = BigramCollocationFinder.from_words(corpus.lower().split(" "),window_size=2)
         finder.apply_freq_filter(thresh)
         bigram_results = finder.score_ngrams(bigram_measures.pmi)
-        if insert == True: 
-            requests =  [InsertOne({"bigram":x[0],"pmi":x[1],'role':self.role.title}) for x in bigram_results]
-            self.db.db[col].write(requests)
-            print("successful insertion")
-        else: 
-            return bigram_results 
+        return bigram_results 
 
-    def store_analysis(self,db,data:dict):
-        [{"bigram":x[0],"pmi":x[1]} for x in analysis.bigram_analysis(df = query_df)]
-        requests = [InsertOne(x) for x in data]
-        scrape_table.collection.bulk_write(requests)
-        return None
