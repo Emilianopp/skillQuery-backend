@@ -6,35 +6,42 @@ from pymongo import MongoClient
 from collections import Counter
 
 client = MongoClient()
-# db = client.prod
 tech = Blueprint('tech', __name__)
 
 
 @tech.route('/tech', methods=['GET'])
 def get_tech():
-    country = session['country']
-    region = session['region']
-    role = session['role'] 
-    print(region,len(role),country)
-    pipe = [{
-        '$lookup':
-        {
-            'from': "Scraped_Data",
-            'localField': "url",
-            'foreignField': "url",
-            'as': "role_info"
-        }
-    },
-        {'$match': {"role_info.country": country ,
-         "role_info.region": region,
-         "role_info.title": role}},
-        {"$group": {"_id": "$found_list"}}
-    ]
-    count = client.prod.Scraped_Data.count( {"country": country ,
-         "region": region,
-         "title": role}) 
-    query = client.prod.techs.aggregate(pipeline=pipe)
-    embedded_list = [x.get("_id") for x in query]
-    tech_list = sum(embedded_list,[])
-    out = {"counts" :Counter(tech_list),"numRoles":count }
-    return json.dumps(out)
+    check_key = lambda x: not session.get(x) is None
+    if check_key("country") and check_key("role") and check_key('region'):
+        country = session['country']
+        region = session['region']
+        role = session['role'] 
+        pipe = [{
+            '$lookup':
+            {
+                'from': "Scraped_Data",
+                'localField': "url",
+                'foreignField': "url",
+                'as': "role_info"
+            }
+        },
+            {'$match': {"role_info.country": country ,
+            "role_info.region": region,
+            "role_info.title": role}},
+            {"$group": {"_id": "$found_list"}}
+        ]
+        count = client.prod.Scraped_Data.count( {"country": country ,
+            "region": region,
+            "title": role}) 
+        query = client.prod.techs.aggregate(pipeline=pipe)
+        embedded_list = [x.get("_id") for x in query]
+        tech_list = sum(embedded_list,[])
+        counts = Counter(tech_list)
+        formated_return = [{"label":x,"value":counts.get(x)} for x in counts]
+        sorted_out = sorted(formated_return, key=lambda d: d['value'],reverse= True) 
+        out = {"counts" :sorted_out,"numRoles":count }
+
+
+        return json.dumps(out)
+    else: 
+        return '200'

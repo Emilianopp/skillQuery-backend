@@ -15,6 +15,6 @@ Role:
   title: "Data Science"
 Scraping: 
   Query: 
-    location: Canada
+    location: US
     search: datascience
   execute: true
