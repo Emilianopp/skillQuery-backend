@@ -23,16 +23,15 @@ def main(role_terms: str, threshold: str, search: str, location: str,additional_
         scrape_table.db.Roles.bulk_write([InsertOne({'role':role.title,'thresh':role.thresh})])
         print(f"Role inserted:{role.title}")
     except Exception as e:
-        print("Role already inserted",e)
+        print("Role already inserted")
     options.add_experimental_option(
         'prefs', {'intl.accept_languages': 'en,en_US'})
-    scrape = Scraper(
-        r'C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe', collection=scrape_table, options=options)
-    scrape.search(search, location)
+    scrape = Scraper("/Users/emilianopenaloza/Library/Application Support/Google/chromedriver",collection=scrape_table, options=options,loc = location)
+    scrape.search(search)
     time.sleep(1)
     job_dict = scrape.get_job_data(Role=role, debug=True)
 
-    scrape.login(p=open(r".\pass.txt", "r").read())
+    scrape.login(p=open(r"/Users/emilianopenaloza/Git/skillQuery/modeling/DataPipe/pass.txt", "r").read())
     try:
         final_dict = scrape.get_description(job_dict, [])
         scrape_table.collection.insert_many(final_dict,ordered= False)
@@ -40,6 +39,7 @@ def main(role_terms: str, threshold: str, search: str, location: str,additional_
         #print(e.details['writeErrors'])
         pass
     scrape.driver.close()
+    print("Done Scraping")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

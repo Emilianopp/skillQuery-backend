@@ -1,3 +1,4 @@
+from datetime import datetime
 import tensorflow as tf
 import numpy as np
 from transformers import DistilBertTokenizer
@@ -16,11 +17,13 @@ path to pretrained tokenizers and model are required
 '''
 class Predictor:
 
-  def __init__(self,path_tokenizer,path_model,db:Mongo,role:Role):
-    self.tokenizer = DistilBertTokenizer.from_pretrained(path_tokenizer)
+  def __init__(self,path_tokenizer,path_model,db:Mongo,role:Role,date,country:str):
     self.model = TFAutoModelForSequenceClassification.from_pretrained(path_model)
+    self.tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
     self.db = db
     self.role = role
+    self.date = date
+    self.country = country
 
   '''
   runs predictions for a given sentance
@@ -42,7 +45,7 @@ class Predictor:
   '''
   def predict_prod(self) -> pd.DataFrame:
 
-    inputs = self.db.query({},{"urls":1,"_id":0,"inputs":1})
+    inputs = self.db.query({"date":self.date,"Country":self.country},{"urls":1,"_id":0,"inputs":1})
     series_inputs = pd.DataFrame(inputs)
     series_inputs['inputs'].replace('empty', np.nan, inplace=True)
     series_inputs.dropna(subset=['inputs'], inplace=True)
@@ -52,6 +55,8 @@ class Predictor:
     df["out"] = list(map(self.pred_vectorized,df.text))
     df['urls'] = sum([x * [m] for x,m in zip(lengths,series_inputs.urls)],[])
     df["role"] = [self.role.title for x in range(len(df.out))]
+    df["date"] = [self.date for x in range(len(df.out))]
+    df["country"] = [self.country for x in range(len(df.out))]
     return df[df.out == 1].drop(['out'],axis = 1)
 
   def save_df(self,path):

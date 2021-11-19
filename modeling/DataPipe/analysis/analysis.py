@@ -1,6 +1,5 @@
 import pymongo 
 import pandas as pd 
-import plotly as px 
 import numpy as np 
 import sys
 import pymongo
@@ -16,9 +15,12 @@ from scraping.classes.Role import *
 
 
 class Analysis_Processing:
-    def __init__(self,db:Mongo,role:Role):
+    def __init__(self,db:Mongo,role:Role,date,country:str):
         self.db = db
         self.role = role
+        self.date = date
+        self.country = country
+        self.date = date
     '''
     if a pipeline is given, returns a dataframe with the pipeline query
     if none is given, returns all model outputs as a dataframe 
@@ -27,7 +29,7 @@ class Analysis_Processing:
         if pipe != None:
             query_cursor = self.db.db[col].aggregate(pipe)
         else:
-            query_cursor = self.db.db[col].find({},{"_id":0,"text":1})
+            query_cursor = self.db.db[col].find({"date":self.date,"Country":self.country},{"_id":0,"text":1})
             query_cursor = {"text":[x.get("text") for x in query_cursor]}
         out = pd.DataFrame(query_cursor)
         if ( out.empty):
@@ -73,9 +75,9 @@ class Analysis_Processing:
         urls = []
         urls_used = []
         #load tech lists
-        tech_list = list(pd.read_csv(keyword_path ,index_col=[0]).iloc[:,0].str.lower())
+        tech_list = list(pd.read_csv(keyword_path).iloc[:,0].str.lower())
         #load all text 
-        model_outs = self.db.db[col].find({},{"text":1, "_id":0,'urls':1 })
+        model_outs = self.db.db[col].find({"country":self.country,'role':self.role.title,"date":self.date},{"text":1, "_id":0,'urls':1 })
         #iterate through text, for items in list
         for text_dict in model_outs:
             found = []
@@ -86,14 +88,41 @@ class Analysis_Processing:
                 if word in tech_list:
                    found.append(word)
             if url not in urls_used and found:
-                urls.append({'url':url, 'found_list': found})
+                urls.append({'url':url,"date" :self.date,"role":self.role.title,"Country":self.country, 'found_list': found})
                 urls_used.append(url)
             elif found:
                 target = [x for x in urls if x.get("url") == url][0]
                 if target['found_list']:
                     target['found_list'] = list(set(found + target['found_list']))
         return urls
-    
+
+    def education(self,col = None):
+        model_outs = self.db.db[col].find({"country":self.country,'role':self.role.title,"date":self.date},{"text":1, "_id":0,'urls':1 })
+        bachelor = ["bachelor","bsc","ba","bachelors","bs","undergraduate"]
+        masters = ["masters","msc","ma"]
+        phd = ["pdh","doctorate"]
+        out = []
+        for text_dict in model_outs:
+            text = text_dict.get("text")
+            text = self.cleanse_sentence(text)
+            url = text_dict.get('urls')
+            for word in text.split(" "):
+                degrees = {}
+                educs = {}
+                if word in bachelor:
+                    educs.update({"Bachelors":1})
+                if word in masters:
+                    educs.update({"Masters":1})
+                if word in phd:
+                    educs.update({"PHD":1})
+                if educs:
+                    degrees.update({'url':url,"date" :self.date,"role":self.role.title,"Country":self.country,"degrees":educs})
+                    out.append(degrees)
+        return out 
+
+
+
+
     '''
     
     #======================================================================#
