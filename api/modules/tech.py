@@ -13,7 +13,6 @@ tech = Blueprint('tech', __name__)
 def get_tech():
     check_key = lambda x: not session.get(x) is None
     if check_key("country") and check_key("role") and check_key('region'):
-        print('pass')
         if(session.get('region') == "All"):
             country = session['country']
             role = session['role'] 
@@ -35,7 +34,6 @@ def get_tech():
             query = client.prod.techs.aggregate(pipeline=pipe)
             embedded_list = [x.get("_id") for x in query]
             tech_list = sum(embedded_list,[])
-            print(tech_list)
             counts = Counter(tech_list)
             formated_return = [{"label":x,"value":counts.get(x)} for x in counts]
             sorted_out = sorted(formated_return, key=lambda d: d['value'],reverse= True) 

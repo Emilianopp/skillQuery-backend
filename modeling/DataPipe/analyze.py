@@ -2,23 +2,30 @@ from pymongo.errors import BulkWriteError
 from analysis.analysis import Analysis_Processing
 from scraping.classes.DataBase.Mongo import Mongo
 from scraping.classes.Role import Role
+from datetime import datetime
 from pymongo import MongoClient
 import argparse
 import yaml
 
 
-def main(analysis_to_do)->None:
+
+def main(analysis_to_do,date,country)->None:
     client = MongoClient()
     db = Mongo(client)
-    analysis = Analysis_Processing(db,Role("Data Science") )
+    analysis = Analysis_Processing(db,Role("Data Science") ,date,country)
     for topic in analysis_to_do.keys():
         inserts = analysis.do_analysis(fr"{analysis_to_do.get(topic)}" ,col = 'model_outputs')
         try:
             client.prod[topic].insert_many(inserts)
         except BulkWriteError as e:
             pass
-        print(f'successfully into {topic}')
-
+        print(f'successfully inserted into {topic}')
+    education = analysis.education('model_outputs')
+    try:
+        client.prod['education'].insert_many(education)
+    except BulkWriteError as e:
+        pass
+    print("succesfully insterted into education")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -30,4 +37,6 @@ if __name__ == '__main__':
         config = yaml.safe_load(f)
 
     analysis_to_do = config["Analysis"]["analysisFiles"]
-    main(analysis_to_do)
+    country = config['Scraping']['Query']['location']
+    date = datetime.strptime(config['Date'],"%m/%Y")
+    main(analysis_to_do,date,country)
