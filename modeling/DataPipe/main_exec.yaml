@@ -10,10 +10,10 @@ Predict:
 Role: 
   additional: Engineer ML Scientist
   threshold: 2
-  title: "Machine Learning"
+  title: "Data Science"
 Scraping: 
   Query: 
-    location: UnitedStates
+    location: US
     search: machinelearning
 Date: 11/2021
 

@@ -8,9 +8,17 @@ from collections import Counter
 client = MongoClient()
 education = Blueprint('education', __name__)
 
+'''
+Education api call
+joins on scraped_data to determine subset of required positions
+returns counts of degrees in below format
+{"label" : <degree> , "value" : <count>}
 
+'''
 @education.route('/education', methods=['GET'])
 def get_education():
+
+    #Return ALL regions
     check_key = lambda x: not session.get(x) is None
     if check_key("country") and check_key("role") and check_key('region'):
         if(session.get('region') == "All"):
@@ -25,8 +33,9 @@ def get_education():
                     'as': "role_info"
                 }
             },
-                {'$match': {"role_info.country": country ,
-                "role_info.title": role}},
+                {'$match': {"role_info.country": country,
+                "role_info.title": role
+                }},
                    {"$group" : {"_id":"$degrees",
                        "count" : {'$sum' : 1}
                    
@@ -35,10 +44,10 @@ def get_education():
             ]
 
             query = client.prod.education.aggregate(pipeline=pipe)
-            embedded_list = [{"degrees" : x.get("_id"),"count" : x.get("count")} for x in query]
+            embedded_list = [{"label" : list(x.get("_id").keys())[0],"value" : x.get("count")} for x in query]
             print(embedded_list)
             return json.dumps(embedded_list)
-
+        #Return specific region
         else:
             country = session['country']
             role = session['role'] 
@@ -64,7 +73,7 @@ def get_education():
             ]
 
             query = client.prod.education.aggregate(pipeline=pipe)
-            embedded_list = [{"degrees" : x.get("_id"),"count" : x.get("count")} for x in query]
+            embedded_list = [{"label" : x.get("_id"),"value" : x.get("count")} for x in query]
             print(embedded_list)
             return json.dumps(embedded_list)
 

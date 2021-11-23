@@ -52,7 +52,7 @@ class Scraper:
         time.sleep(5)
         i = 1
         dates = datetime.today().strftime('%m/%Y')
-        date = datetime.strptime(dates,"%m/%Y")
+        date = datetime.strptime(dates, "%m/%Y")
         while True:
             try:
                 element = f'//*[@id="main-content"]/section[2]/ul/li[{i}]/div/div[2]/'
@@ -76,7 +76,8 @@ class Scraper:
                     location = self.driver.find_element_by_xpath(
                         element + 'div/span[1]').text
                     location_map = location.replace(" ", '').split(",")
-
+                    # print liine ==========
+                    # =====================
                     if len(location_map) == 3:
                         can_province_abbrev = {
                             'Alberta': 'AB',
@@ -92,40 +93,45 @@ class Scraper:
                             'Quebec': 'QC',
                             'Saskatchewan': 'SK',
                             'Yukon': 'YT'
-                            
+
                         }
                         region = location_map[1]
                         if(region in list(can_province_abbrev.keys())):
                             region = can_province_abbrev.get(region)
-                
+
                         job_urls.append(
-                            {"title": Role.title,"url": url, 'location':location,'company': company,
-                            'city': location_map[0],'region':region,"country": self.loc,
-                            'role': role, 'date': date})
+                            {"title": Role.title, "url": url, 'location': location, 'company': company,
+                             'city': location_map[0], 'region': region, "country": self.loc,
+                             'role': role, 'date': date})
                     elif len(location_map) == 2:
-                        states = ['IA', 'KS', 'UT', 'VA', 'NC', 'NE', 'SD', 'AL', 'ID', 'FM', 'DE', 'AK', 'CT', 'PR', 'NM', 'MS', 'PW', 'CO', 'NJ', 'FL', 'MN', 'VI', 'NV', 'AZ', 'WI', 'ND', 'PA', 'OK', 'KY', 'RI', 'NH', 'MO', 'ME', 'VT', 'GA', 'GU', 'AS', 'NY', 'CA', 'HI', 'IL', 'TN', 'MA', 'OH', 'MD', 'MI', 'WY', 'WA', 'OR', 'MH', 'SC', 'IN', 'LA', 'MP', 'DC', 'MT', 'AR', 'WV', 'TX']
-                        regex = re.compile(r'\b(' + '|'.join(states) + r')\b', re.IGNORECASE)
-                        state = filter(regex.match,location_map)[0]
-                        job_urls.append(
-                            {"title": Role.title,"url": url, 'location':location,'company': company,
-                            'role': role, "country":self.loc, "region":state,'date': date})
-                    else: 
-                        job_urls.append(
-                            {"title": Role.title,"url": url, 'location':location,'company': company,
-                            'role': role, "country":self.loc, 'region': "All",'date': date})
+                      
+                        states = ['IA', 'KS', 'UT', 'VA', 'NC', 'NE', 'SD', 'AL', 'ID', 'FM', 'DE', 'AK', 'CT', 'PR', 'NM', 'MS', 'PW', 'CO', 'NJ', 'FL', 'MN', 'VI', 'NV', 'AZ', 'WI', 'ND', 'PA', 'OK', 'KY',
+                                  'RI', 'NH', 'MO', 'ME', 'VT', 'GA', 'GU', 'AS', 'NY', 'CA', 'HI', 'IL', 'TN', 'MA', 'OH', 'MD', 'MI', 'WY', 'WA', 'OR', 'MH', 'SC', 'IN', 'LA', 'MP', 'DC', 'MT', 'AR', 'WV', 'TX']
 
-
+                        found_state = [x for x in location_map if x.upper() in states]
+                        if found_state[0]:
+                            state = found_state[0]
+                        else:
+                            state = "All" 
+                        job_urls.append(
+                            {"title": Role.title, "url": url, 'location': location, 'company': company,
+                            'role': role, "country": self.loc, "region": state, 'date': date})
+                    else:
+                        job_urls.append(
+                            {"title": Role.title, "url": url, 'location': location, 'company': company,
+                             'role': role, "country": self.loc, 'region': "All", 'date': date})
 
                 i += 1
-                #keep going until index is out of range at which point it will return the dictionary
+            #keep going until index is out of range at which point it will return the dictionary
             except Exception as e:
                 i += 1
                 element = f'//*[@id="main-content"]/section[2]/ul/li[{i-1}]/div/div[2]/'
-                self.scroll_down('//*[@id="main-content"]','')
-                print(e,'error at i hello = ',i)
-            if(debug == True and i == 250):
+                self.scroll_down('//*[@id="main-content"]', '')
+                print(e, 'error at i hello = ', i)
+            if(debug == True and i == 300):
                 return job_urls
     #+++++++++Gathers descriptions for job postings+++++++++#
+
     def get_description(self, job_dict, good):
         fail = []
         # Iterate through the url list to scrape the descriptions
@@ -135,7 +141,7 @@ class Scraper:
                 try:
                     self.driver.get(url)
                     time.sleep(3)
-                    
+
                     self.driver.find_element_by_xpath(
                         '/html/body/div[6]/div[3]/div/div[1]/div[1]/div/div[2]/footer/button').click()
                     description = self.driver.find_element_by_xpath(
@@ -143,10 +149,10 @@ class Scraper:
                     ind.update({"description": description})
                     good.append(url)
                 except Exception as e:
-                    
-                    try: 
+
+                    try:
                         self.driver.find_element_by_xpath(
-                        '/html/body/div[5]/div[3]/div/div[1]/div[1]/div/div[2]/footer/button').click()
+                            '/html/body/div[5]/div[3]/div/div[1]/div[1]/div/div[2]/footer/button').click()
                         description = self.driver.find_element_by_xpath(
                             '//*[@id="job-details"]/span').text
                         ind.update({"description": description})
