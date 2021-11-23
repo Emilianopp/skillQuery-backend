@@ -9,10 +9,10 @@ import yaml
 
 
 
-def main(analysis_to_do,date,country)->None:
+def main(analysis_to_do,date,country,role:str)->None:
     client = MongoClient()
     db = Mongo(client)
-    analysis = Analysis_Processing(db,Role("Data Science") ,date,country)
+    analysis = Analysis_Processing(db,Role(role) ,date,country)
     for topic in analysis_to_do.keys():
         inserts = analysis.do_analysis(fr"{analysis_to_do.get(topic)}" ,col = 'model_outputs')
         try:
@@ -32,11 +32,10 @@ if __name__ == '__main__':
     parser.add_argument("config", help="yaml config file for query",
                         type=str)
     args = parser.parse_args()
-
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
-
     analysis_to_do = config["Analysis"]["analysisFiles"]
     country = config['Scraping']['Query']['location']
     date = datetime.strptime(config['Date'],"%m/%Y")
-    main(analysis_to_do,date,country)
+    role = config["Role"]["title"]
+    main(analysis_to_do,date,country,role)

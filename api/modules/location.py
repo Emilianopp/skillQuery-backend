@@ -93,9 +93,15 @@ def get_region(country):
         query = client.prod.techs.aggregate(pipeline=pipe)
         acceptable = [x for x in query if x.get('count') > 5  ]
         out = [x.get("_id") for x in acceptable]
-        out = sorted(out)
         out = sum(out,[])
-        out.insert(0,"All")
+        out = sorted(out)
+        if "All"  in out:
+            out.remove("All")
+            out.insert(0,"All")
+        elif "All" not in out:
+            out.insert(0,"All")
+        
+        print(out)
         return json.dumps(out)
     return json.dumps([])
 
