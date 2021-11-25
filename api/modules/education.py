@@ -45,7 +45,6 @@ def get_education():
 
             query = client.prod.education.aggregate(pipeline=pipe)
             embedded_list = [{"label" : list(x.get("_id").keys())[0],"value" : x.get("count")} for x in query]
-            print(embedded_list)
             return json.dumps(embedded_list)
         #Return specific region
         else:
@@ -74,7 +73,6 @@ def get_education():
 
             query = client.prod.education.aggregate(pipeline=pipe)
             embedded_list = [{"label" : x.get("_id"),"value" : x.get("count")} for x in query]
-            print(embedded_list)
             return json.dumps(embedded_list)
 
     else: 

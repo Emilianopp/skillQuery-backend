@@ -44,6 +44,7 @@ def get_tech():
             count = client.prod.Scraped_Data.count({"country": country ,
                 "title": role}) 
             query = client.prod.techs.aggregate(pipeline=pipe)
+
             embedded_list = [x.get("_id") for x in query]
             print([x for x in query])
             tech_list = sum(embedded_list,[])
