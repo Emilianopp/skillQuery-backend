@@ -1,14 +1,17 @@
 from flask import Blueprint,session
 import json
 import re
+import flask
 from flask.globals import current_app
+from flask.wrappers import Request
 from pymongo import ASCENDING, MongoClient
-
+from  flask_cors import CORS, cross_origin
+from flask import Flask, make_response, request
 '''
 Primary get method for location and regions
 '''
 
-client = MongoClient()
+client = MongoClient("mongodb+srv://emilianopp:Jonsnow1@cluster0.2p4zi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.prod
 location = Blueprint('location',__name__)
 
@@ -44,23 +47,30 @@ queries through mongo db scraped_data collection to obtain DISTINCT countries in
 
 '''
 @location.route('/country',methods = ['GET'])
+@cross_origin( supports_credentials = True)
 def select_country():
     country = db.Scraped_Data
     country_query = country.distinct('country')
-    return json.dumps(country_query)
+    response = flask.jsonify(country_query)
+
+    return response
 
 
 '''
 POST method for country
 sets the country for session
-allos us to access country variable in other blueprint files
+allows us to access country variable in other blueprint files
 '''
 @location.route('/set_country/<country>',methods = ["POST"])
+@cross_origin(supports_credentials = True)
 def set_country(country):
     if country != None:
-        session['country'] = country
-    print(session.get('country'),'set')
-    return ('200')
+        response = flask.jsonify('200')
+        response.set_cookie("country",country,secure=True,samesite= "None",domain= "skillquery.herokuapp.com")
+       
+        return response
+
+    return (flask.jsonify('200'))
 
 '''
 region GET
@@ -68,6 +78,7 @@ if a region is fed we do a mongodb aggregation in order to retrieve
 
 '''
 @location.route('/region/<country>',methods = ['POST'])
+@cross_origin(supports_credentials = True)
 def get_region(country):
 
     if country != "Select%Country":
@@ -101,9 +112,11 @@ def get_region(country):
         elif "All" not in out:
             out.insert(0,"All")
         
-        print(out)
-        return json.dumps(out)
-    return json.dumps([])
+        response = flask.jsonify(out)
+ 
+
+        return response
+    return flask.jsonify([])
 
 
 '''
@@ -111,9 +124,13 @@ Post request to set region
 sets session region ready for interaction 
 '''
 @location.route('/set_region/<region>',methods = ["POST"])
+@cross_origin(supports_credentials = True)
 def set_region(region):
     if region != None:
-        session['region'] = region
+        response = flask.jsonify("200")
+        response.set_cookie("region",region,secure=True,samesite= "None",domain= "skillquery.herokuapp.com")
+        return response
+
     return ('200')
 
 
@@ -122,5 +139,17 @@ Get country api request
 simply returns country to enable more dynamic jsx code
 '''
 @location.route('/get_country',methods = ["GET"])
+@cross_origin( supports_credentials = True)
 def get_country():
-    return (json.dumps([session["country"]]))
+    country = request.cookies.get("country")
+
+    response = flask.jsonify(country)
+
+    return (response)
+
+# @cross_origin( supports_credentials = True)
+# def select_country():
+#     country = db.Scraped_Data
+#     country_query = country.distinct('country')
+#     response = flask.jsonify(country_query)
+#     return response

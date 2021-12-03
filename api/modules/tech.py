@@ -1,11 +1,11 @@
-from flask import Blueprint, session
+from flask import Blueprint, session,request
 import json
 import re
 from flask.globals import current_app
 from pymongo import MongoClient
 from collections import Counter
-
-client = MongoClient()
+from  flask_cors import CORS, cross_origin
+client = MongoClient("mongodb+srv://emilianopp:Jonsnow1@cluster0.2p4zi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 tech = Blueprint('tech', __name__)
 
 '''
@@ -20,14 +20,15 @@ counts is a sorted dictionary of techs and their respective counts
 '''
 
 @tech.route('/tech', methods=['GET'])
+@cross_origin(supports_credentials = True)
 def get_tech():
-    check_key = lambda x: not session.get(x) is None
+    check_key = lambda x: not request.cookies.get(x) is None
 #ONLY COUNTRY SET  ============================
     if check_key("country") and check_key("role") and check_key('region'):
-        if(session.get('region') == "All"):
-            country = session['country']
+        if(request.cookies.get('region') == "All"):
+            country = request.cookies['country']
             'Machine Learning'
-            role = session['role'] 
+            role = request.cookies['role'] 
             pipe = [{
                 '$lookup':
                 {
@@ -55,9 +56,9 @@ def get_tech():
             return json.dumps(out)
 #REGION SET  ============================
         else:
-            country = session['country']
-            region = session['region'].replace(" ","")
-            role = session['role'] 
+            country = request.cookies['country']
+            region = request.cookies['region'].replace(" ","")
+            role = request.cookies['role'] 
             pipe = [{
                 '$lookup':
                 {
