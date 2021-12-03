@@ -128,7 +128,7 @@ class Scraper:
                 element = f'//*[@id="main-content"]/section[2]/ul/li[{i-1}]/div/div[2]/'
                 self.scroll_down('//*[@id="main-content"]', '')
                 print(e, 'error at i hello = ', i)
-            if(debug == True and i == 300):
+            if(debug == True and i == 20):
                 return job_urls
     #+++++++++Gathers descriptions for job postings+++++++++#
 

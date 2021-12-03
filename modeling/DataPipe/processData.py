@@ -8,7 +8,7 @@ from pymongo.errors import BulkWriteError
 import argparse
 import yaml
 def main(date,role,country)->None:
-    client = MongoClient()
+    client = MongoClient('mongodb+srv://emilianopp:Jonsnow1@cluster0.2p4zi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
     db = Mongo(client,col = 'Scraped_Data')
     pre = Preprocessor( db = db,date = date,role = role ,country = country)
     pre.get_data()

@@ -16,7 +16,7 @@ db.collection.find().skip(db.collection.count() - N) get last N records
 def main(role_terms: str, threshold: str, search: str, location: str,additional_terms:str) -> None:
     options = webdriver.ChromeOptions()
     options.add_argument("--log-level=3")
-    client = MongoClient()
+    client = MongoClient('mongodb+srv://emilianopp:Jonsnow1@cluster0.2p4zi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
     scrape_table = Mongo(client)
     role = Role(role_terms, thresh=threshold,alternate_tittles= additional_terms)
     try:
