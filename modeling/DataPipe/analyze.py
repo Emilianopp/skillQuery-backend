@@ -10,7 +10,7 @@ import yaml
 
 
 def main(analysis_to_do,date,country,role:str)->None:
-    client = MongoClient()
+    client = MongoClient('mongodb+srv://emilianopp:Jonsnow1@cluster0.2p4zi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
     db = Mongo(client)
     analysis = Analysis_Processing(db,Role(role) ,date,country)
     for topic in analysis_to_do.keys():

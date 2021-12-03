@@ -1,11 +1,12 @@
-from flask import Blueprint, session
+from flask import Blueprint, session,request
 import json
 import re
 from flask.globals import current_app
 from pymongo import MongoClient
 from collections import Counter
+from  flask_cors import CORS, cross_origin
 
-client = MongoClient()
+client = MongoClient("mongodb+srv://emilianopp:Jonsnow1@cluster0.2p4zi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 education = Blueprint('education', __name__)
 
 '''
@@ -16,14 +17,15 @@ returns counts of degrees in below format
 
 '''
 @education.route('/education', methods=['GET'])
+@cross_origin(supports_credentials = True)
 def get_education():
 
     #Return ALL regions
-    check_key = lambda x: not session.get(x) is None
+    check_key = lambda x: not request.cookies.get(x) is None
     if check_key("country") and check_key("role") and check_key('region'):
-        if(session.get('region') == "All"):
-            country = session['country']
-            role = session['role'] 
+        if(request.cookies.get('region') == "All"):
+            country = request.cookies['country']
+            role = request.cookies['role'] 
             pipe = [{
                 '$lookup':
                 {
@@ -48,9 +50,9 @@ def get_education():
             return json.dumps(embedded_list)
         #Return specific region
         else:
-            country = session['country']
-            role = session['role'] 
-            region = session['region'].replace(" ","")
+            country = request.cookies['country']
+            role = request.cookies['role'] 
+            region = request.cookies['region'].replace(" ","")
             pipe = [{
                 '$lookup':
                 {

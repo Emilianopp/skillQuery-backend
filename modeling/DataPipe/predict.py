@@ -7,7 +7,7 @@ from scraping.classes.Role import Role
 import argparse
 import yaml
 def main(path_model:str,path_tokenizer:str,role:str,date ,country:str)->None:
-            client = MongoClient()
+            client = MongoClient('mongodb+srv://emilianopp:Jonsnow1@cluster0.2p4zi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
             db = Mongo(client,col = "model_inputs")
 
             '''PREICTOR OBJECT'''

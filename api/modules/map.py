@@ -1,9 +1,9 @@
-from flask import Blueprint,session
+from flask import Blueprint,request
 import json
 import re
 from flask.globals import current_app
 from pymongo import MongoClient
-
+from  flask_cors import CORS, cross_origin
 '''
 Primary get method for map and regions
 '''
@@ -21,11 +21,12 @@ queries through mongo db scraped_data collection to count occurance of DISTINCT 
 
 
 @map.route('/map',methods = ['GET'])
+@cross_origin(supports_credentials = True)
 def get_map():
-    check_key = lambda x: not session.get(x) is None
+    check_key = lambda x: not request.cookies.get(x) is None
     if check_key("country") and check_key("role") and check_key('region'):
-            country = session['country']
-            role = session['role'] 
+            country = request.cookies['country']
+            role = request.cookies['role'] 
             pipe = [{
                     "$match": {
                             "country": country,
