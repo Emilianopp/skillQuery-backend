@@ -3,7 +3,7 @@ from flask import Blueprint,request
 import json
 import re
 from flask.globals import current_app
-import collections, functools, operator
+from collections import defaultdict
 from flask.json import jsonify
 from pymongo import MongoClient
 from  flask_cors import CORS, cross_origin
@@ -48,7 +48,12 @@ def get_map():
                     }
                     ]
             count = client.prod.Scraped_Data.aggregate(pipeline = pipe )
-
+            c = defaultdict(int)
+            res = 0
+            count = [x for x in count]
+            for d in count:
+                res += d.get("count")
+            
             if country == "Canada":
                 province_mapper = {
                     'AB':'01',
@@ -65,12 +70,11 @@ def get_map():
                     'SK':'11',
                     'YT':'12'
                     }
-                sum = dict(functools.reduce(operator.add,map(collections.Counter, list(count)))).get("count")
-                formatted_dict = [{"id":  province_mapper.get(x.get("_id")), "value": (x.get("count")/sum),"showLabel" : "1" } for x in list(count) if x.get("_id") in province_mapper.keys() ]  
+                formatted_dict = [{"id":  province_mapper.get(x.get("_id")), "value": x.get("count")* 100 /res,"showLabel" : "1" } for x in list(count) if x.get("_id") in province_mapper.keys() ]  
             elif country == "US":
                 
-                formatted_dict = [{"id":  x.get("_id"), "value": x.get("count"),"showLabel" : "1" } for x in list(count) if type(x.get("_id") ) == str ]  
-        
-            return json.dumps('formatted_dict')         
+                formatted_dict = [{"id":  x.get("_id"), "value": x.get("count") * 100/res,"showLabel" : "1" } for x in list(count) if type(x.get("_id") ) == str ]  
+                
+            return json.dumps(formatted_dict)         
     else :
         return json.dumps('200')
