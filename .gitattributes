@@ -1,1 +1,4 @@
 *.h5 filter=lfs diff=lfs merge=lfs -text
+secrets.yaml
+mongo.txt
+pass.txt
