@@ -8,13 +8,18 @@ from pymongo.errors import BulkWriteError
 import argparse
 import yaml
 def main(date,role,country)->None:
-    client = MongoClient('mongodb+srv://emilianopp:Jonsnow1@cluster0.2p4zi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
-    db = Mongo(client,col = 'Scraped_Data')
+    mdb = open(r"./mongo.txt", "r").read()
+    client = MongoClient(mdb)
+    db = client.prod
     pre = Preprocessor( db = db,date = date,role = role ,country = country)
     pre.get_data()
     records = pre.process()
     try:
-         db.db.model_inputs.insert_many(records)
+        res = db.model_inputs.insert_many(records)
+        s = f"Inserted {len(res.inserted_ids)} MODEL INPUTS of {role} roles in {country}, Date:{date.today()}\n"
+        with open("./logs/Output.txt", "a") as text_file:
+            text_file.write( s)
+        print(s)
     except BulkWriteError as e:
         print(e)
         pass
@@ -27,7 +32,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
-    date = datetime.strptime(config['Date'], "%m/%Y")
+    dates = datetime.today().strftime('%m/%Y')
+    date = datetime.strptime(dates, "%m/%Y")
     role = config["Role"]['title']
     country = config['Scraping']['Query']['location']
     main(date,role,country)

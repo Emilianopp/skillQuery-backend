@@ -16,10 +16,12 @@ sys.path.append("./Database")
 
 
 class Scraper:
-    def __init__(self, path_to_driver, options, collection, loc):
+    def __init__(self, path_to_driver, options, collection, loc,iterations):
         self.driver = webdriver.Chrome(path_to_driver, options=options)
         self.collection = collection
         self.loc = loc
+        self.iterations = iterations
+        
     #+++++++++Logs you into linkedin+++++++++#
 
     def login(self, p):
@@ -128,7 +130,7 @@ class Scraper:
                 element = f'//*[@id="main-content"]/section[2]/ul/li[{i-1}]/div/div[2]/'
                 self.scroll_down('//*[@id="main-content"]', '')
                 print(e, 'error at i hello = ', i)
-            if(debug == True and i == 20):
+            if( i == self.iterations):
                 return job_urls
     #+++++++++Gathers descriptions for job postings+++++++++#
 

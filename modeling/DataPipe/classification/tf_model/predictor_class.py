@@ -1,4 +1,5 @@
 from datetime import datetime
+import enum
 import tensorflow as tf
 import numpy as np
 from transformers import DistilBertTokenizer
@@ -17,7 +18,7 @@ path to pretrained tokenizers and model are required
 '''
 class Predictor:
 
-  def __init__(self,path_tokenizer,path_model,db:Mongo,role:Role,date,country:str):
+  def __init__(self,path_tokenizer,path_model,db,role:Role,date,country:str):
     self.model = TFAutoModelForSequenceClassification.from_pretrained(path_model)
     self.tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
     self.db = db
@@ -44,15 +45,24 @@ class Predictor:
   
   '''
   def predict_prod(self) -> pd.DataFrame:
+  
+    inputs = self.db.model_inputs.find({'role':self.role.title,"date":self.date,"Country":self.country},{"urls":1,"_id":0,"inputs":1})
 
-    inputs = self.db.query({"date":self.date,"Country":self.country},{"urls":1,"_id":0,"inputs":1})
+    # inputs = self.db.model_inputs.find({},{"urls":1,"_id":0,"inputs":1})
+  
     series_inputs = pd.DataFrame(inputs)
     series_inputs['inputs'].replace('empty', np.nan, inplace=True)
     series_inputs.dropna(subset=['inputs'], inplace=True)
     lengths = [len(x) for x in series_inputs.inputs]
     df = pd.DataFrame()
     df['text'] = sum(series_inputs.inputs,[])
-    df["out"] = list(map(self.pred_vectorized,df.text))
+    res = []
+    print(f"Starting predictions of {len(df.text)} lines")
+    for i,line in enumerate(df.text):
+      res.append(self.pred_vectorized(line))
+      if i % 100 == 0: 
+        print(f'checkpoint index at {i} of {len(df.text)}')
+    df["out"] = res
     df['urls'] = sum([x * [m] for x,m in zip(lengths,series_inputs.urls)],[])
     df["role"] = [self.role.title for x in range(len(df.out))]
     df["date"] = [self.date for x in range(len(df.out))]

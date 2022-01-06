@@ -15,7 +15,7 @@ from scraping.classes.Role import *
 
 
 class Analysis_Processing:
-    def __init__(self,db:Mongo,role:Role,date,country:str):
+    def __init__(self,db,role:Role,date,country:str):
         self.db = db
         self.role = role
         self.date = date
@@ -27,9 +27,9 @@ class Analysis_Processing:
     '''
     def get_data(self,col,pipe=None) -> pd.DataFrame:
         if pipe != None:
-            query_cursor = self.db.db[col].aggregate(pipe)
+            query_cursor = self.db[col].aggregate(pipe)
         else:
-            query_cursor = self.db.db[col].find({"date":self.date,"Country":self.country},{"_id":0,"text":1})
+            query_cursor = self.db[col].find({"date":self.date,"Country":self.country,'role':self.role.title},{"_id":0,"text":1})
             query_cursor = {"text":[x.get("text") for x in query_cursor]}
         out = pd.DataFrame(query_cursor)
         if ( out.empty):
@@ -77,7 +77,8 @@ class Analysis_Processing:
         #load tech lists
         tech_list = list(pd.read_csv(keyword_path).iloc[:,0].str.lower())
         #load all text 
-        model_outs = self.db.db[col].find({"country":self.country,'role':self.role.title,"date":self.date},{"text":1, "_id":0,'urls':1 })
+        # model_outs = self.db[col].find({},{"text":1, "_id":0,'urls':1 })
+        model_outs = self.db[col].find({"country":self.country,'role':self.role.title,"date":self.date},{"text":1, "_id":0,'urls':1 })
         #iterate through text, for items in list
         for text_dict in model_outs:
             found = []
@@ -88,7 +89,8 @@ class Analysis_Processing:
                 if word in tech_list:
                    found.append(word)
             if url not in urls_used and found:
-                urls.append({'url':url,"date" :self.date,"role":self.role.title,"Country":self.country, 'found_list': found})
+                metaData = self.db.Scraped_Data.find_one({"url":url},{"country":1, "_id":0,'title':1,"date":1 ,'region':1})               
+                urls.append({'url':url,"date" :metaData.get("date"),"role":metaData.get('title'),"Country":metaData.get("country"), 'region':metaData.get('region'),'found_list': found})
                 urls_used.append(url)
             elif found:
                 target = [x for x in urls if x.get("url") == url][0]
@@ -97,15 +99,18 @@ class Analysis_Processing:
         return urls
 
     def education(self,col = None):
-        model_outs = self.db.db[col].find({"country":self.country,'role':self.role.title,"date":self.date},{"text":1, "_id":0,'urls':1 })
+        model_outs = self.db[col].find({"country":self.country,'role':self.role.title,"date":self.date},{"text":1, "_id":0,'urls':1 })
+        # model_outs = self.db[col].find({},{"text":1, "_id":0,'urls':1 })
+        
         bachelor = ["bachelor","bsc","ba","bachelors","bs","undergraduate"]
         masters = ["masters","msc","ma"]
-        phd = ["pdh","doctorate"]
+        phd = ["phd","doctorate"]
         out = []
         for text_dict in model_outs:
             text = text_dict.get("text")
             text = self.cleanse_sentence(text)
             url = text_dict.get('urls')
+            
             for word in text.split(" "):
                 degrees = {}
                 educs = {}
@@ -115,8 +120,9 @@ class Analysis_Processing:
                     educs.update({"Masters":1})
                 if word in phd:
                     educs.update({"PHD":1})
-                if educs:
-                    degrees.update({'url':url,"date" :self.date,"role":self.role.title,"Country":self.country,"degrees":educs})
+                if educs: 
+                    metaData = self.db.Scraped_Data.find_one({"url":url},{"country":1, "_id":0,'title':1,"date":1,'region':1 })
+                    degrees.update({'url':url,"date" :metaData.get("date"),"role":metaData.get("title"),"Country":metaData.get("country"), 'region':metaData.get('region'),"degrees":educs})
                     out.append(degrees)
         return out 
 
