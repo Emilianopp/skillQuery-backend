@@ -1,0 +1,20 @@
+--- 
+Analysis: 
+  analysisFiles: 
+    packages: "/Users/emilianopenaloza/Git/skillQuery-backend/analysis_files/packages_ML.txt"
+    techs: /Users/emilianopenaloza/Git/skillQuery-backend/analysis_files/languages.txt
+    ops: /Users/emilianopenaloza/Git/skillQuery-backend/analysis_files/ops.txt
+Predict: 
+  path_model: './classification/tf_model/model_BERT'
+  path_tokenizer: ./classification/tf_model/tokenizer/config.json
+Role: 
+  additional: Engineer ML Scientist ai
+  threshold: 2
+  title: "Machine Learning"
+Scraping:
+  iterations: 300
+  Query: 
+    location: US
+    search: machinelearning
+
+

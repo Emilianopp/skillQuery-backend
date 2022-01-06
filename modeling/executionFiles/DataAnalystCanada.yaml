@@ -1,0 +1,21 @@
+--- 
+
+Analysis: 
+  analysisFiles: 
+    packages: "/Users/emilianopenaloza/Git/skillQuery-backend/analysis_files/packages_ML.txt"
+    techs: /Users/emilianopenaloza/Git/skillQuery-backend/analysis_files/languages.txt
+    ops: /Users/emilianopenaloza/Git/skillQuery-backend/analysis_files/ops.txt
+Predict: 
+  path_model: './classification/tf_model/model_BERT'
+  path_tokenizer: ./classification/tf_model/tokenizer/config.json
+Role: 
+  additional: analysis business
+  threshold: 2
+  title: "Data Analyst"
+Scraping: 
+  iterations: 300
+  Query: 
+    location: Canada
+    search: dataanalyst
+
+
