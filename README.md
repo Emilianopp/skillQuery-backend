@@ -1,3 +1,5 @@
+## Integration and analysis were completed, documentation will be updated soon
+
 # Data Science Qualifications
 
 Original project goal was to gather insight on what is needed become a Data Scientist in Canada.
