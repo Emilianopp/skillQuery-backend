@@ -1,3 +1,8 @@
 *.txt
 *.zip 
 *_pycache__*
+*secrets.yaml
+*mongo.txt
+*pass.txt
+*.vscode
+*.ipynb_checkpoints
