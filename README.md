@@ -1,12 +1,8 @@
-## Integration and analysis were completed, documentation will be updated soon
+# SkillQuery 
 
-# Data Science Qualifications
+This project was developed with the goal of accumulating the large amount of of open-source job description data into a single location. 
 
-Original project goal was to gather insight on what is needed become a Data Scientist in Canada.
-
-The project has then become larger and is now trying to encapsulate the skills required for a variety of roles across multiple locations into an analytics web app. Project description will soon be refactored to represent current goals
-
-Below is the developmental process that has been done, any of which is subject to change as development continues.
+If you wish to contribute there are a few things that the project is missing please see the needed [Contributions](#Contributions) below. 
 
 
 
@@ -17,7 +13,7 @@ Data was collected using a Selenium web crawler
 Every available job posting correlated to the term "Data Science" was gathered. 
 Exact procedure can be found in the [get_data notebook](https://github.com/Emilianopp/DataScienceReq/blob/master/notebooks/1_get_data.ipynb)
 
-Updates have been made to integrate a [data pipeline](https://github.com/Emilianopp/DataScienceReq/tree/master/modeling/DataPipe). The pipeline scrapes data and walks it through preprocess all the way to model prediction, making database calls as needed.
+A [data pipeline](https://github.com/Emilianopp/DataScienceReq/tree/master/modeling/DataPipe) was then integrated. The pipeline scrapes data and walks it through preprocess all the way to model prediction, making database calls as needed. If you wish to apply the pipeline yourself please see the ReadMe in the pipeline directory. 
 
 # Data Cleansing 
 
@@ -28,7 +24,7 @@ Multiple cleansing procedures such as;
 * Appropriately splitting the data
 * Elimination of unrelated roles 
 
-Procedures can be found in within the [formatting notebook](https://github.com/Emilianopp/DataScienceReq/blob/master/notebooks/3_format_data.ipynb)
+Procedures can be found in within the [formatting notebook](https://github.com/Emilianopp/DataScienceReq/blob/master/notebooks/3_format_data.ipynb) and are streamlined in the pipeline. 
 
 # Modeling
 Manually finding qualifications of roles within data(404 job postings) would be extremely time inefficient and cumbersome. 
@@ -44,15 +40,12 @@ A wide variety of models were tested and interpreted
 Results were stagnant for both [SVM models and Naive Bayes Classifier](https://github.com/Emilianopp/DataScienceReq/blob/master/notebooks/5.1_modelling.ipynb)(~88% accuracy on test set).
 Unfortunantly [LSTM network](https://github.com/Emilianopp/DataScienceReq/blob/master/notebooks/5.2_Nueral_nets.ipynb) did not work well with the data, achieving the lowest accuracy yet of 83%. [BERT](https://github.com/Emilianopp/DataScienceReq/blob/master/modeling/notebooks/BERT_classification.ipynb) transfer learning was found to be extremely accurate when used for text classification(94% accuracy), and will be used in production.
 
+# Contributions
 
-# Qualification Analytics
+There are a few contributions that could be easy to add that I have not have had time to do, if you wish to implement them you may create a pull request. 
 
-* Word Bigrams/Trigrams to determine common terminology of desired role
-* Pie chart to encapsulate most desired technical skills
-  
-To do
-* Location filtering
-* Packages/frameworks utilized
-* Cloud technologies 
-* Statistical concepts (where applicable)
+* More keyword selections like this one for [education](https://github.com/Emilianopp/skillQuery-backend/tree/master/analysis_files)
+* More plots and analytics to be added to the [dashboard](https://github.com/Emilianopp/SkillQuery/tree/main/src/components/Plots)
+* Bigram/n-gram analysis
+
   
